@@ -54,3 +54,27 @@ services:
       selected_route:='Town10_route'
       start_delay_in_seconds:=${VEHICLE_ENGAGE_DELAY}
       spawn_point:='58.6,134.5,0,0,0,180'"
+
+
+  # CDASim (MOSAIC + CARLA 0.10 + SUMO via docker-in-docker)
+  cdasim:
+    image: usdotfhwastol/cdasim:latest
+    container_name: cdasim
+    privileged: true
+    network_mode: host
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=graphics,utility,compute
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /dev:/dev
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /opt/carma-simulation/logs:/opt/carma-simulation/logs
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    command: ["mosaic.sh", "-s", "Town10"]
