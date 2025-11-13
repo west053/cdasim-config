@@ -39,6 +39,8 @@ services:
     container_name: carma-carla-integration_1
     volumes_from:
       - container:carma-config:ro
+    depends_on:
+      - cdasim
     environment:
       RMW_IMPLEMENTATION: ${RMW_IMPLEMENTATION}
     network_mode: host
