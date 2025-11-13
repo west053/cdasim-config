@@ -61,9 +61,12 @@ services:
   # CDASim (MOSAIC + CARLA 0.10 + SUMO via docker-in-docker)
   cdasim:
     image: usdotfhwastol/cdasim:latest
-    container_name: cdasim
+    container_name: ubuntu-carla
     privileged: true
-    network_mode: host
+    user: "carma"
+    # network_mode: host
+    ports:
+    - "3000-3002:3000-3002"
     environment:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
