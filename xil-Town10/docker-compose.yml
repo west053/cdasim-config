@@ -5,7 +5,8 @@ services:
     container_name: platform_ros2_1
     volumes_from:
       - container:carma-config:ro
-    network_mode: host
+    networks:
+      - carma-platform
     environment:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
@@ -43,16 +44,19 @@ services:
       - cdasim
     environment:
       RMW_IMPLEMENTATION: ${RMW_IMPLEMENTATION}
-    network_mode: host
+    # network_mode: host
+    networks:
+      - carma-platform
+      - cdasim
     # volumes:
     #   - /home/cy/carma_ws/src/carma-carla-integration/carma-carla-integration/carma-carla-bridge/launch/carma_carla_bridge.launch.py:/home/carma/carma-carla-integration/carma-carla-bridge/launch/carma_carla_bridge.launch.py
     command: >
       bash -c "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
       && source /home/carma/carma-carla-integration/install/setup.bash
-      && python3 /home/carma/carma-carla-integration/carla-health-poll/src/wait_for_carla.py --carla-host=127.0.0.1
+      && python3 /home/carma/carma-carla-integration/carla-health-poll/src/wait_for_carla.py --carla-host=carla-server
       && ros2 launch carma_carla_bridge carma_carla_bridge.launch.py
       role_name:='carma_1'
-      host:='127.0.0.1'
+      host:='carla-server'
       selected_route:='Town10_route'
       start_delay_in_seconds:=${VEHICLE_ENGAGE_DELAY}
       spawn_point:='58.6,134.5,0,0,0,180'"
@@ -65,6 +69,8 @@ services:
     privileged: true
     user: "carma"
     # network_mode: host
+    networks:
+      - cdasim
     ports:
     - "3000-3002:3000-3002"
     environment:
@@ -83,3 +89,9 @@ services:
           devices:
             - capabilities: [gpu]
     command: ["mosaic.sh", "-s", "Town10"]
+
+networks:
+  carma-platform:
+    driver: bridge
+  cdasim:
+    driver: bridge
