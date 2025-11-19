@@ -65,7 +65,7 @@ services:
   # CDASim (MOSAIC + CARLA 0.10 + SUMO via docker-in-docker)
   cdasim:
     image: usdotfhwastol/cdasim:latest
-    container_name: ubuntu-carla
+    container_name: cdasim
     privileged: true
     user: "carma"
     # network_mode: host
