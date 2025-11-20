@@ -54,7 +54,7 @@ services:
       carma-platform:
         ipv4_address: 172.3.0.6
       cdasim:
-        ipv4_address: 172.3.0.6
+        ipv4_address: 172.2.0.6
     # volumes:
     #   - /home/cy/carma_ws/src/carma-carla-integration/carma-carla-integration/carma-carla-bridge/launch/carma_carla_bridge.launch.py:/home/carma/carma-carla-integration/carma-carla-bridge/launch/carma_carla_bridge.launch.py
     command: >
