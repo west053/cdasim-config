@@ -5,9 +5,7 @@ services:
     container_name: platform_ros2_1
     volumes_from:
       - container:carma-config:ro
-    networks:
-        carma-platform:
-          ipv4_address: 172.3.0.4
+    network_mode: host
     environment:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
@@ -50,20 +48,16 @@ services:
       RMW_IMPLEMENTATION: ${RMW_IMPLEMENTATION}
       ROS_DOMAIN_ID: 0
       ROS_LOCALHOST_ONLY: 0
-    networks:
-      carma-platform:
-        ipv4_address: 172.3.0.6
-      cdasim:
-        ipv4_address: 172.2.0.6
+    network_mode: host
     # volumes:
     #   - /home/cy/carma_ws/src/carma-carla-integration/carma-carla-integration/carma-carla-bridge/launch/carma_carla_bridge.launch.py:/home/carma/carma-carla-integration/carma-carla-bridge/launch/carma_carla_bridge.launch.py
     command: >
       bash -c "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
       && source /home/carma/carma-carla-integration/install/setup.bash
-      && python3 /home/carma/carma-carla-integration/carla-health-poll/src/wait_for_carla.py --carla-host=carla-server
+      && python3 /home/carma/carma-carla-integration/carla-health-poll/src/wait_for_carla.py --carla-host=127.0.0.1
       && ros2 launch carma_carla_bridge carma_carla_bridge.launch.py
       role_name:='carma_1'
-      host:='carla-server'
+      host:='127.0.0.1'
       selected_route:='Town10_route'
       start_delay_in_seconds:=${VEHICLE_ENGAGE_DELAY}
       spawn_point:='58.6,134.5,0,0,0,180'"
@@ -76,9 +70,7 @@ services:
     privileged: true
     user: "carma"
     # network_mode: host
-    networks:
-      cdasim:
-        ipv4_address: 172.2.0.2
+    network_mode: host
     environment:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
@@ -96,15 +88,3 @@ services:
             - capabilities: [gpu]
     command: ["mosaic.sh", "-s", "Town10"]
 
-
-networks:
-  carma-platform:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.3.0.0/24
-  cdasim:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.2.0.0/24
