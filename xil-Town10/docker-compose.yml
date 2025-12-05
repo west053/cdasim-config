@@ -86,7 +86,7 @@ services:
         reservations:
           devices:
             - capabilities: [gpu]
-    # command: ["mosaic.sh", "-s", "Town10"]
+    command: ["mosaic.sh", "-s", "Town10"]
 
   xml-rpc-server:
     image: usdotfhwastol/xml-rpc-server:latest
