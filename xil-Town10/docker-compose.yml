@@ -94,5 +94,5 @@ services:
     network_mode: host
     depends_on:
       - cdasim
-    command: ["python3.10", "/home/carma/src/carla_v0.10_xmlrpc_server.py"]
+    command: ["python3.10", "/home/carma/src/carla_v0.10_xmlrpc_server.py", "--debug"]
 
