@@ -86,15 +86,7 @@ services:
         reservations:
           devices:
             - capabilities: [gpu]
-    # command: ["mosaic.sh", "-s", "Town10"]
-
-  xml-rpc-server:
-    image: usdotfhwastol/xml-rpc-server:latest
-    container_name: xml-rpc-server
-    network_mode: host
-    depends_on:
-      - cdasim
-    command: ["python3.10", "/home/carma/src/carla_v0.10_xmlrpc_server.py"]
+    command: ["mosaic.sh", "-s", "Town10"]
 
   xml-rpc-server:
     image: usdotfhwastol/xml-rpc-server:latest
