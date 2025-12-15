@@ -20,7 +20,7 @@ def generate_launch_description():
             parameters=[
                 {'lanelet2_map_file': LaunchConfiguration('lanelet2_map_file')},
                 # This georeference is a standard default for CARMA simulation maps
-                {'georeference': '+proj=tmerc +lat_0=38.95197911150576 +lon_0=-77.14835128349988 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +vunits=m +no_defs'}
+                # {'georeference': '+proj=tmerc +lat_0=38.95197911150576 +lon_0=-77.14835128349988 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +vunits=m +no_defs'}
             ]
         )
     ])
