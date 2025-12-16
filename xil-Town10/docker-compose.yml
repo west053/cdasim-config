@@ -60,7 +60,7 @@ services:
       host:='127.0.0.1'
       synchronous_mode:=True
       selected_route:='Town10_route'
-      start_delay_in_seconds:=45.0
+      start_delay_in_seconds:=90.0
       fixed_delay_seconds:=0.1
       passive:=True
       spawn_point:='58.6,134.5,0,0,0,180'"
