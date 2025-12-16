@@ -99,5 +99,5 @@ services:
       - cdasim
     command: >
       bash -c "sleep 30
-      && python3.10 /home/carma/src/carla_v0.10_xmlrpc_server.py ----skip-first-spawned-updates"
+      && python3.10 /home/carma/src/carla_v0.10_xmlrpc_server.py --skip-first-spawned-updates"
 
